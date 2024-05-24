@@ -80,8 +80,31 @@ class Partido{
       public function getCoefBase(){
         return $this->coefBase;
     }
+/* retorna el equipo ganador de un
+partido (equipo con mayor cantidad de goles del partido), en caso de empate debe retornar a los dos
+equipos */
+    public function darEquipoGanador() {
+        if ($this->getCantGolesE1() > $this->getCantGolesE2()) {
+            $resultado = $this->getObjEquipo1();
+        } elseif ($this->getCantGolesE1() < $this->getCantGolesE2()) {
+            $resultado = $this->getObjEquipo2();
+        } else {
+            $resultado = $this->getObjEquipo1() . " y " . $this->getObjEquipo2();
+        }
+        return $resultado;
+    }
 
+    /* Metodo coeficientePartido(): retorna el valor obtenido por el coeficiente basemultiplicado por la cantidad de goles y la cantidad de jugadores. */
+public function coeficientePartido(){
+     $cBase = $this->getCoefBase();
+     $golesE1 = $this->getCantGolesE1();
+     $golesE2 = $this->getCantGolesE2();
+     $cantJugEquip1 =$this->getObjEquipo1()->getCantJugadores();
+     $cantJugEquip2 = $this->getObjEquipo2()->getCantJugadores();
 
+$coeficienteFinal = $cBase * ($golesE1 + $golesE2)  * ( $cantJugEquip1 + $cantJugEquip2);
+return $coeficienteFinal;
+}
 
 public function __toString(){
         //string $cadena
